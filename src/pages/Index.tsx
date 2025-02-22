@@ -1,13 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Laptop, Smartphone, Network } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import ProjectModal from "@/components/ProjectModal";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<null | {
+    title: string;
+    description: string;
+    image: string;
+    tech: string[];
+    longDescription?: string;
+  }>(null);
+  const { theme, setTheme } = useTheme();
 
   const sectionRefs = {
     home: useRef<HTMLDivElement>(null),
@@ -41,75 +47,25 @@ const Index = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const projects = [{
     title: "Mobile Banking App",
     description: "Secure banking application built with React Native",
     longDescription: "A comprehensive mobile banking solution that provides secure transactions, real-time account updates, and seamless user experience. Features include biometric authentication, instant transfers, bill payments, and detailed transaction history.",
-    media: [
-      { type: "video", url: "https://example.com/banking-app-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
+    image: "/placeholder.svg",
     tech: ["React Native", "JavaScript", "API Integration"]
   }, {
     title: "E-commerce Platform",
     description: "Full-stack e-commerce solution",
     longDescription: "A scalable e-commerce platform built with modern technologies. Features include product management, shopping cart, secure checkout, order tracking, and admin dashboard for inventory management.",
-    media: [
-      { type: "video", url: "https://example.com/ecommerce-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
+    image: "/placeholder.svg",
     tech: ["Java", "Spring Boot", "React"]
   }, {
     title: "Task Management System",
     description: "Enterprise task management application",
     longDescription: "An enterprise-grade task management system that helps teams collaborate effectively. Includes features like task assignment, progress tracking, deadline management, and detailed reporting.",
-    media: [
-      { type: "video", url: "https://example.com/task-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
+    image: "/placeholder.svg",
     tech: ["Java", "React", "PostgreSQL"]
-  }, {
-    title: "AI-Powered Analytics Dashboard",
-    description: "Real-time data visualization platform",
-    longDescription: "An intelligent analytics dashboard that processes and visualizes complex data in real-time. Features machine learning algorithms for predictive analytics and customizable reporting tools.",
-    media: [
-      { type: "video", url: "https://example.com/analytics-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
-    tech: ["Python", "TensorFlow", "React", "D3.js"]
-  }, {
-    title: "Social Media Platform",
-    description: "Feature-rich social networking app",
-    longDescription: "A modern social media platform with real-time messaging, post sharing, and multimedia content support. Includes advanced features like story sharing and live streaming.",
-    media: [
-      { type: "video", url: "https://example.com/social-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
-    tech: ["React Native", "Node.js", "MongoDB"]
-  }, {
-    title: "Smart Home Control System",
-    description: "IoT-based home automation solution",
-    longDescription: "An intelligent home automation system that allows users to control various smart devices through a single interface. Features include schedule management, energy monitoring, and voice control.",
-    media: [
-      { type: "video", url: "https://example.com/smarthome-demo.mp4" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" },
-      { type: "image", url: "/placeholder.svg" }
-    ],
-    tech: ["React", "Node.js", "MQTT", "IoT"]
   }];
-
   const skills = [{
     name: "Java",
     level: 90
@@ -133,11 +89,55 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <div className="bg-pattern" />
-      <Navbar activeSection={activeSection} onNavClick={handleNavClick} />
+      <nav className="fixed top-0 w-full z-50 glass">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-semibold">M.Abdullah.SE</span>
+            <div className="flex items-center gap-8">
+              {["home", "about", "projects", "contact"].map(item => (
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item)}
+                  className={`nav-link ${activeSection === item ? "text-foreground after:scale-x-100" : ""}`}
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </button>
+              ))}
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+              >
+                {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       <main className="pt-24">
         <section ref={sectionRefs.home} className="container mx-auto px-6 py-20">
-          <HeroSection onViewProjects={() => handleNavClick("projects")} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <span className="inline-block px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full mb-4">
+              Software Engineer
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Muhammad Abdullah
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              Crafting exceptional mobile and web experiences with Java, JavaScript, and React Native
+            </p>
+            <button 
+              onClick={() => handleNavClick("projects")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+            >
+              View Projects <ArrowRight size={18} />
+            </button>
+          </motion.div>
         </section>
 
         <section ref={sectionRefs.about} className="container mx-auto px-6 py-20 bg-secondary/50">
@@ -218,7 +218,7 @@ const Index = () => {
                   className="project-card glass cursor-pointer"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <img src={project.media[0].type === "video" ? project.media[1].url : project.media[0].url} alt={project.title} className="w-full h-48 object-cover" />
+                  <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                   <div className="p-6">
                     <h3 className="font-semibold mb-2">{project.title}</h3>
                     <p className="text-sm text-muted-foreground mb-4">
@@ -270,10 +270,32 @@ const Index = () => {
         </section>
       </main>
 
-      <ProjectModal 
-        project={selectedProject} 
-        onClose={() => setSelectedProject(null)} 
-      />
+      <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
+        <DialogContent className="max-w-2xl">
+          {selectedProject && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-semibold mb-4">{selectedProject.title}</DialogTitle>
+              </DialogHeader>
+              <img 
+                src={selectedProject.image} 
+                alt={selectedProject.title} 
+                className="w-full h-64 object-cover rounded-lg mb-4" 
+              />
+              <DialogDescription className="text-base text-foreground">
+                <p className="mb-4">{selectedProject.longDescription}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {selectedProject.tech.map(tech => (
+                    <span key={tech} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </DialogDescription>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
