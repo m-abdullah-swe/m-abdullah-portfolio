@@ -1,26 +1,35 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const {
-    theme,
-    setTheme
-  } = useTheme();
+  const [selectedProject, setSelectedProject] = useState<null | {
+    title: string;
+    description: string;
+    image: string;
+    tech: string[];
+    longDescription?: string;
+  }>(null);
+  const { theme, setTheme } = useTheme();
+
   const sectionRefs = {
     home: useRef<HTMLDivElement>(null),
     about: useRef<HTMLDivElement>(null),
     projects: useRef<HTMLDivElement>(null),
-    contact: useRef<HTMLDivElement>(null)
+    contact: useRef<HTMLDivElement>(null),
   };
+
   const handleNavClick = (section: string) => {
     setActiveSection(section);
     sectionRefs[section as keyof typeof sectionRefs].current?.scrollIntoView({
       behavior: "smooth",
-      block: "start"
+      block: "start",
     });
   };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
@@ -41,16 +50,19 @@ const Index = () => {
   const projects = [{
     title: "Mobile Banking App",
     description: "Secure banking application built with React Native",
+    longDescription: "A comprehensive mobile banking solution that provides secure transactions, real-time account updates, and seamless user experience. Features include biometric authentication, instant transfers, bill payments, and detailed transaction history.",
     image: "/placeholder.svg",
     tech: ["React Native", "JavaScript", "API Integration"]
   }, {
     title: "E-commerce Platform",
     description: "Full-stack e-commerce solution",
+    longDescription: "A scalable e-commerce platform built with modern technologies. Features include product management, shopping cart, secure checkout, order tracking, and admin dashboard for inventory management.",
     image: "/placeholder.svg",
     tech: ["Java", "Spring Boot", "React"]
   }, {
     title: "Task Management System",
     description: "Enterprise task management application",
+    longDescription: "An enterprise-grade task management system that helps teams collaborate effectively. Includes features like task assignment, progress tracking, deadline management, and detailed reporting.",
     image: "/placeholder.svg",
     tech: ["Java", "React", "PostgreSQL"]
   }];
@@ -73,17 +85,28 @@ const Index = () => {
     name: "API Design",
     level: 80
   }];
-  return <div className="min-h-screen">
+
+  return (
+    <div className="min-h-screen">
       <div className="bg-pattern" />
       <nav className="fixed top-0 w-full z-50 glass">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <span className="text-xl font-semibold">M.Abdullah.SE</span>
             <div className="flex items-center gap-8">
-              {["home", "about", "projects", "contact"].map(item => <button key={item} onClick={() => handleNavClick(item)} className={`nav-link ${activeSection === item ? "text-foreground after:scale-x-100" : ""}`}>
+              {["home", "about", "projects", "contact"].map(item => (
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item)}
+                  className={`nav-link ${activeSection === item ? "text-foreground after:scale-x-100" : ""}`}
+                >
                   {item.charAt(0).toUpperCase() + item.slice(1)}
-                </button>)}
-              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 rounded-full hover:bg-accent/10 transition-colors">
+                </button>
+              ))}
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+              >
                 {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             </div>
@@ -93,15 +116,12 @@ const Index = () => {
 
       <main className="pt-24">
         <section ref={sectionRefs.home} className="container mx-auto px-6 py-20">
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
             <span className="inline-block px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full mb-4">
               Software Engineer
             </span>
@@ -111,22 +131,22 @@ const Index = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Crafting exceptional mobile and web experiences with Java, JavaScript, and React Native
             </p>
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
+            <button 
+              onClick={() => handleNavClick("projects")}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+            >
               View Projects <ArrowRight size={18} />
             </button>
           </motion.div>
         </section>
 
         <section ref={sectionRefs.about} className="container mx-auto px-6 py-20 bg-secondary/50">
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
             <h2 className="section-title">About Me</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Based in Pakistan, I specialize in developing high-performance mobile and web applications.
@@ -160,49 +180,44 @@ const Index = () => {
         </section>
 
         <section className="container mx-auto px-6 py-20">
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
             <h2 className="section-title">Skills</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {skills.map(skill => <div key={skill.name} className="relative">
+              {skills.map(skill => (
+                <div key={skill.name} className="relative">
                   <div className="skill-item">
                     {skill.name}
                     <span className="ml-2 text-xs opacity-60">{skill.level}%</span>
                   </div>
-                </div>)}
+                </div>
+              ))}
             </div>
           </motion.div>
         </section>
 
         <section ref={sectionRefs.projects} className="container mx-auto px-6 py-20 bg-secondary/50">
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
             <h2 className="section-title">Featured Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project, index) => <motion.div key={index} initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} transition={{
-              duration: 0.5,
-              delay: index * 0.1
-            }} className="project-card glass">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="project-card glass cursor-pointer"
+                  onClick={() => setSelectedProject(project)}
+                >
                   <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                   <div className="p-6">
                     <h3 className="font-semibold mb-2">{project.title}</h3>
@@ -210,26 +225,26 @@ const Index = () => {
                       {project.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {project.tech.map(tech => <span key={tech} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded-full">
+                      {project.tech.map(tech => (
+                        <span key={tech} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded-full">
                           {tech}
-                        </span>)}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </motion.div>)}
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </section>
 
         <section ref={sectionRefs.contact} className="container mx-auto px-6 py-20">
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
             <h2 className="section-title">Get in Touch</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Interested in working together? Let's discuss your project.
@@ -254,6 +269,35 @@ const Index = () => {
           </motion.div>
         </section>
       </main>
-    </div>;
+
+      <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
+        <DialogContent className="max-w-2xl">
+          {selectedProject && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-semibold mb-4">{selectedProject.title}</DialogTitle>
+              </DialogHeader>
+              <img 
+                src={selectedProject.image} 
+                alt={selectedProject.title} 
+                className="w-full h-64 object-cover rounded-lg mb-4" 
+              />
+              <DialogDescription className="text-base text-foreground">
+                <p className="mb-4">{selectedProject.longDescription}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {selectedProject.tech.map(tech => (
+                    <span key={tech} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </DialogDescription>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 };
+
 export default Index;
