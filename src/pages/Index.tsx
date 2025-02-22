@@ -1,12 +1,47 @@
-
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun } from "lucide-react";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
   const { theme, setTheme } = useTheme();
+
+  const sectionRefs = {
+    home: useRef<HTMLDivElement>(null),
+    about: useRef<HTMLDivElement>(null),
+    projects: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null),
+  };
+
+  const handleNavClick = (section: string) => {
+    setActiveSection(section);
+    sectionRefs[section as keyof typeof sectionRefs].current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100;
+
+      Object.entries(sectionRefs).forEach(([key, ref]) => {
+        if (ref.current) {
+          const element = ref.current;
+          const elementTop = element.offsetTop;
+          const elementBottom = elementTop + element.offsetHeight;
+
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            setActiveSection(key);
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const projects = [
     {
@@ -49,7 +84,7 @@ const Index = () => {
               {["home", "about", "projects", "contact"].map((item) => (
                 <button
                   key={item}
-                  onClick={() => setActiveSection(item)}
+                  onClick={() => handleNavClick(item)}
                   className={`nav-link ${
                     activeSection === item ? "text-foreground after:scale-x-100" : ""
                   }`}
@@ -73,7 +108,7 @@ const Index = () => {
       </nav>
 
       <main className="pt-24">
-        <section className="container mx-auto px-6 py-20">
+        <section ref={sectionRefs.home} className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,7 +130,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section className="container mx-auto px-6 py-20 bg-secondary/50">
+        <section ref={sectionRefs.about} className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -155,7 +190,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section className="container mx-auto px-6 py-20 bg-secondary/50">
+        <section ref={sectionRefs.projects} className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -199,7 +234,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section className="container mx-auto px-6 py-20">
+        <section ref={sectionRefs.contact} className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,12 +245,41 @@ const Index = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Interested in working together? Let's discuss your project.
             </p>
-            <a
-              href="mailto:your.email@example.com"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
-            >
-              Contact Me <ArrowRight size={18} />
-            </a>
+            <div className="flex flex-col items-center gap-6">
+              <a
+                href="mailto:your.email@example.com"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+              >
+                Contact Me <ArrowRight size={18} />
+              </a>
+              
+              <div className="flex items-center gap-4 mt-4">
+                <a
+                  href="https://github.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+                >
+                  <Github className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+                >
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://twitter.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+                >
+                  <Twitter className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
           </motion.div>
         </section>
       </main>
