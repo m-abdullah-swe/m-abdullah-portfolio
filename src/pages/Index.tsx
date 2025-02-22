@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Portfolio } from "lucide-react";
+import { ArrowRight, Laptop, Smartphone, Network } from "lucide-react";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -60,7 +59,6 @@ const Index = () => {
       </nav>
 
       <main className="pt-24">
-        {/* Hero Section */}
         <section className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,7 +81,6 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* About Section */}
         <section className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -113,7 +110,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="glass p-6 rounded-lg">
-                <Portfolio className="w-10 h-10 text-accent mb-4" />
+                <Network className="w-10 h-10 text-accent mb-4" />
                 <h3 className="font-semibold mb-2">API Design</h3>
                 <p className="text-sm text-muted-foreground">
                   Developing robust and secure APIs
@@ -123,7 +120,6 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* Skills Section */}
         <section className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -145,7 +141,6 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* Projects Section */}
         <section className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -190,7 +185,6 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* Contact Section */}
         <section className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
