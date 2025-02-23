@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X, Star, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<null | {
     title: string;
     description: string;
@@ -27,6 +28,7 @@ const Index = () => {
 
   const handleNavClick = (section: string) => {
     setActiveSection(section);
+    setIsMobileMenuOpen(false);
     sectionRefs[section as keyof typeof sectionRefs].current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -134,7 +136,8 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <span className="text-xl font-semibold">M.Abdullah.SE</span>
-            <div className="flex items-center gap-8">
+            
+            <div className="hidden md:flex items-center gap-8">
               {["home", "about", "projects", "contact"].map(item => (
                 <button
                   key={item}
@@ -151,8 +154,54 @@ const Index = () => {
                 {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             </div>
+
+            <button
+              className="md:hidden p-2 rounded-full hover:bg-accent/10 transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
           </div>
         </div>
+
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden glass border-t border-border/20"
+            >
+              <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+                {["home", "about", "projects", "contact"].map(item => (
+                  <button
+                    key={item}
+                    onClick={() => handleNavClick(item)}
+                    className={`text-left py-2 ${activeSection === item ? "text-accent" : "text-foreground/80"}`}
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="flex items-center gap-2 py-2"
+                >
+                  {theme === "dark" ? (
+                    <>
+                      <Sun className="w-5 h-5" />
+                      <span>Light Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-5 h-5" />
+                      <span>Dark Mode</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="pt-24">
@@ -166,10 +215,10 @@ const Index = () => {
             <span className="inline-block px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full mb-4">
               Software Engineer
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6">
               Muhammad Abdullah
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-base md:text-lg text-muted-foreground mb-8">
               Crafting exceptional mobile and web experiences with Java, JavaScript, and React Native
             </p>
             <button 
@@ -189,12 +238,12 @@ const Index = () => {
             className="max-w-4xl mx-auto"
           >
             <h2 className="section-title">About Me</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-base md:text-lg text-muted-foreground mb-8">
               Based in Pakistan, I specialize in developing high-performance mobile and web applications.
               With extensive experience in Java, JavaScript, and React Native, I focus on creating
               seamless user experiences that drive business growth.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               <div className="glass p-6 rounded-lg">
                 <Laptop className="w-10 h-10 text-accent mb-4" />
                 <h3 className="font-semibold mb-2">Web Development</h3>
@@ -209,7 +258,7 @@ const Index = () => {
                   Creating native mobile experiences
                 </p>
               </div>
-              <div className="glass p-6 rounded-lg">
+              <div className="glass p-6 rounded-lg sm:col-span-2 md:col-span-1">
                 <Network className="w-10 h-10 text-accent mb-4" />
                 <h3 className="font-semibold mb-2">API Design</h3>
                 <p className="text-sm text-muted-foreground">
@@ -228,7 +277,7 @@ const Index = () => {
             className="max-w-4xl mx-auto"
           >
             <h2 className="section-title">Skills</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {skills.map(skill => (
                 <div key={skill.name} className="relative">
                   <div className="skill-item">
@@ -249,7 +298,7 @@ const Index = () => {
             className="max-w-4xl mx-auto"
           >
             <h2 className="section-title">Featured Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, index) => (
                 <motion.div
                   key={index}
@@ -334,11 +383,14 @@ const Index = () => {
             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="section-title">Get in Touch</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-base md:text-lg text-muted-foreground mb-8">
               Interested in working together? Let's discuss your project.
             </p>
             <div className="flex flex-col items-center gap-6">
-              <a href="mailto:your.email@example.com" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
+              <a 
+                href="mailto:your.email@example.com" 
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+              >
                 Contact Me <ArrowRight size={18} />
               </a>
               
