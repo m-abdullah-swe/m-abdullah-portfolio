@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X } from "lucide-react";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X, Star } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -95,6 +95,36 @@ const Index = () => {
   }, {
     name: "API Design",
     level: 80
+  }];
+
+  const reviews = [{
+    name: "Sarah Johnson",
+    company: "TechCorp Solutions",
+    role: "CTO",
+    content: "Working with Abdullah was an excellent experience. His expertise in mobile development helped us launch our app ahead of schedule.",
+    rating: 5,
+    image: "/placeholder.svg"
+  }, {
+    name: "Michael Chen",
+    company: "Digital Dynamics",
+    role: "Product Manager",
+    content: "Abdullah's attention to detail and problem-solving skills made him an invaluable asset to our project. Would definitely work with him again!",
+    rating: 5,
+    image: "/placeholder.svg"
+  }, {
+    name: "Emily Rodriguez",
+    company: "FinTech Innovations",
+    role: "Lead Developer",
+    content: "The quality of work delivered was exceptional. Abdullah's understanding of both frontend and backend technologies is impressive.",
+    rating: 5,
+    image: "/placeholder.svg"
+  }, {
+    name: "David Kim",
+    company: "StartUp Masters",
+    role: "CEO",
+    content: "Outstanding work on our e-commerce platform. Abdullah's solutions were both innovative and scalable.",
+    rating: 5,
+    image: "/placeholder.svg"
   }];
 
   return (
@@ -246,6 +276,53 @@ const Index = () => {
                 </motion.div>
               ))}
             </div>
+          </motion.div>
+        </section>
+
+        <section className="container mx-auto px-6 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h2 className="section-title mb-12">Client Reviews</h2>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {reviews.map((review, index) => (
+                  <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                    <div className="glass p-6 rounded-xl h-full">
+                      <div className="flex items-start gap-4 mb-4">
+                        <img 
+                          src={review.image} 
+                          alt={review.name} 
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h3 className="font-semibold">{review.name}</h3>
+                          <p className="text-sm text-muted-foreground">{review.role}</p>
+                          <p className="text-sm text-accent">{review.company}</p>
+                        </div>
+                      </div>
+                      <p className="text-muted-foreground mb-4">{review.content}</p>
+                      <div className="flex gap-1">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                        ))}
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </motion.div>
         </section>
 
