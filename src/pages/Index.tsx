@@ -65,12 +65,12 @@ const Index = () => {
     tech: ["React Native", "JavaScript", "API Integration", "Firebase", "Push Notifications"]
   }, {
     title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution",
+    description: "Full-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solutionFull-stack e-commerce solution",
     longDescription: "A scalable e-commerce platform built with modern technologies. Features include product management, shopping cart, secure checkout, order tracking, and admin dashboard for inventory management.",
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    tech: ["Java", "Spring Boot", "React"]
+    tech: ["Java", "Spring Boot", "React Native"]
   }, {
     title: "ED Tech",
     description: "Online course learning app build with React Native",
@@ -78,7 +78,7 @@ const Index = () => {
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    tech: ["Java", "React Native", "Mongo DB"]
+    tech: ["Java", "React Native", "Mongo DB",]
   }];
 
   const skills = [{
