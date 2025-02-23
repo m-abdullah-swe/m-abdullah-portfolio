@@ -56,8 +56,8 @@ const Index = () => {
   }, []);
 
   const projects = [{
-    title: "Mobile Banking App",
-    description: "Secure banking application built with React Native",
+    title: "Let's Build",
+    description: "Construction Project Management application built with React Native",
     longDescription: "A comprehensive mobile banking solution that provides secure transactions, real-time account updates, and seamless user experience. Features include biometric authentication, instant transfers, bill payments, and detailed transaction history.",
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
@@ -113,7 +113,7 @@ const Index = () => {
     level: 70
   }, {
     name: "Agentic AI",
-    level: 80
+    level: 80,
   }
 ];
 
