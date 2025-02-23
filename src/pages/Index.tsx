@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -10,6 +11,8 @@ const Index = () => {
     title: string;
     description: string;
     image: string;
+    video: string;
+    images: string[];
     tech: string[];
     longDescription?: string;
   }>(null);
@@ -47,25 +50,33 @@ const Index = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   const projects = [{
     title: "Mobile Banking App",
     description: "Secure banking application built with React Native",
     longDescription: "A comprehensive mobile banking solution that provides secure transactions, real-time account updates, and seamless user experience. Features include biometric authentication, instant transfers, bill payments, and detailed transaction history.",
     image: "/placeholder.svg",
+    video: "https://example.com/demo.mp4",
+    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     tech: ["React Native", "JavaScript", "API Integration"]
   }, {
     title: "E-commerce Platform",
     description: "Full-stack e-commerce solution",
     longDescription: "A scalable e-commerce platform built with modern technologies. Features include product management, shopping cart, secure checkout, order tracking, and admin dashboard for inventory management.",
     image: "/placeholder.svg",
+    video: "https://example.com/demo.mp4",
+    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     tech: ["Java", "Spring Boot", "React"]
   }, {
     title: "Task Management System",
     description: "Enterprise task management application",
     longDescription: "An enterprise-grade task management system that helps teams collaborate effectively. Includes features like task assignment, progress tracking, deadline management, and detailed reporting.",
     image: "/placeholder.svg",
+    video: "https://example.com/demo.mp4",
+    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     tech: ["Java", "React", "PostgreSQL"]
   }];
+
   const skills = [{
     name: "Java",
     level: 90
@@ -271,17 +282,36 @@ const Index = () => {
       </main>
 
       <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-3xl">
           {selectedProject && (
             <>
               <DialogHeader>
                 <DialogTitle className="text-2xl font-semibold mb-4">{selectedProject.title}</DialogTitle>
               </DialogHeader>
-              <img 
-                src={selectedProject.image} 
-                alt={selectedProject.title} 
-                className="w-full h-64 object-cover rounded-lg mb-4" 
-              />
+              
+              <Carousel className="w-full">
+                <CarouselContent>
+                  <CarouselItem>
+                    <video
+                      controls
+                      className="w-full h-[400px] object-cover rounded-lg"
+                      src={selectedProject.video}
+                    />
+                  </CarouselItem>
+                  {selectedProject.images.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <img 
+                        src={image} 
+                        alt={`${selectedProject.title} screenshot ${index + 1}`} 
+                        className="w-full h-[400px] object-cover rounded-lg"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+
               <DialogDescription className="text-base text-foreground">
                 <p className="mb-4">{selectedProject.longDescription}</p>
                 <div className="flex flex-wrap gap-2 mt-4">
