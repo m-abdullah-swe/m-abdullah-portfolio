@@ -97,9 +97,16 @@ const Index = () => {
     name: "Mobile Development",
     level: 85
   }, {
-    name: "API Design",
+    name: "Python",
     level: 80
-  }];
+  }, {
+    name: "Machine Learning",
+    level: 80
+  }, {
+    name: "Simulation & Modeling",
+    level: 80
+  }
+];
 
   const reviews = [{
     name: "Muhammad Sameer",
