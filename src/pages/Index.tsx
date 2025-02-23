@@ -70,7 +70,7 @@ const Index = () => {
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    tech: ["Java", "Spring Boot", "React Native"]
+    tech: ["Java", "Spring Boot", "React Native",]
   }, {
     title: "ED Tech",
     description: "Online course learning app build with React Native",
