@@ -102,7 +102,7 @@ const Index = () => {
   }];
 
   const reviews = [{
-    name: "Sarah Johnson",
+    name: "Muhammad Sameer",
     company: "TechCorp Solutions",
     role: "CTO",
     content: "Working with Abdullah was an excellent experience. His expertise in mobile development helped us launch our app ahead of schedule.",
