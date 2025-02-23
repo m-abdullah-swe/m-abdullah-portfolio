@@ -105,6 +105,15 @@ const Index = () => {
   }, {
     name: "Simulation & Modeling",
     level: 80
+  }, {
+    name: "DevOps",
+    level: 70
+  }, {
+    name: "Kubernetes",
+    level: 70
+  }, {
+    name: "Agentic AI",
+    level: 80
   }
 ];
 
