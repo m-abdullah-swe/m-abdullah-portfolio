@@ -62,7 +62,7 @@ const Index = () => {
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    tech: ["React Native", "JavaScript", "API Integration"]
+    tech: ["React Native", "JavaScript", "API Integration", "Firebase", "Push Notifications"]
   }, {
     title: "E-commerce Platform",
     description: "Full-stack e-commerce solution",
@@ -72,13 +72,13 @@ const Index = () => {
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     tech: ["Java", "Spring Boot", "React"]
   }, {
-    title: "Task Management System",
-    description: "Enterprise task management application",
+    title: "ED Tech",
+    description: "Online course learning app build with React Native",
     longDescription: "An enterprise-grade task management system that helps teams collaborate effectively. Includes features like task assignment, progress tracking, deadline management, and detailed reporting.",
     image: "/placeholder.svg",
     video: "https://example.com/demo.mp4",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    tech: ["Java", "React", "PostgreSQL"]
+    tech: ["Java", "React Native", "Mongo DB"]
   }];
 
   const skills = [{
