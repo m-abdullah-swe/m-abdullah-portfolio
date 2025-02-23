@@ -103,8 +103,8 @@ const Index = () => {
 
   const reviews = [{
     name: "Muhammad Sameer",
-    company: "TechCorp Solutions",
-    role: "CTO",
+    company: "Fiver",
+    role: "Buyer",
     content: "Working with Abdullah was an excellent experience. His expertise in mobile development helped us launch our app ahead of schedule.",
     rating: 5,
     image: "/placeholder.svg"
