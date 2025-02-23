@@ -29,10 +29,12 @@ const Index = () => {
   const handleNavClick = (section: string) => {
     setActiveSection(section);
     setIsMobileMenuOpen(false);
-    sectionRefs[section as keyof typeof sectionRefs].current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const element = sectionRefs[section as keyof typeof sectionRefs].current;
+    if (element) {
+      const yOffset = -80; // Account for fixed header
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -205,7 +207,7 @@ const Index = () => {
       </nav>
 
       <main className="pt-24">
-        <section ref={sectionRefs.home} className="container mx-auto px-6 py-20">
+        <section ref={sectionRefs.home} id="home" className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -230,7 +232,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section ref={sectionRefs.about} className="container mx-auto px-6 py-20 bg-secondary/50">
+        <section ref={sectionRefs.about} id="about" className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +292,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section ref={sectionRefs.projects} className="container mx-auto px-6 py-20 bg-secondary/50">
+        <section ref={sectionRefs.projects} id="projects" className="container mx-auto px-6 py-20 bg-secondary/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -375,7 +377,7 @@ const Index = () => {
           </motion.div>
         </section>
 
-        <section ref={sectionRefs.contact} className="container mx-auto px-6 py-20">
+        <section ref={sectionRefs.contact} id="contact" className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
