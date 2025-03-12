@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -66,20 +67,66 @@
   .bg-pattern {
     @apply fixed inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=2670&q=80')] bg-cover bg-no-repeat bg-center opacity-[0.03] pointer-events-none;
   }
+
+  /* Modern Animation Classes */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-scale {
+    @apply transition-all duration-300 hover:scale-105;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,215,0,0.5)];
+  }
+
+  .slide-up {
+    @apply transition-all duration-500 translate-y-4 opacity-0;
+  }
+
+  .slide-up.in-view {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .stagger-item {
+    @apply opacity-0 translate-y-4;
+  }
+
+  .stagger-item.in-view {
+    @apply opacity-100 translate-y-0;
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Smooth scroll for the page */
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 .section-title {
-  @apply text-2xl font-semibold mb-6 relative inline-block after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-accent after:bottom-0 after:left-0;
+  @apply text-2xl font-semibold mb-6 relative inline-block after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-accent after:bottom-0 after:left-0 after:scale-x-0 after:transition-transform after:duration-500 hover:after:scale-x-100;
 }
 
 .project-card {
-  @apply relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg;
+  @apply relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
 }
 
 .skill-item {
-  @apply glass px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-accent hover:text-white;
+  @apply glass px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-accent hover:text-white hover:scale-105 hover:shadow-md;
 }
 
 .nav-link {
   @apply relative text-foreground/80 hover:text-foreground transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
+
+/* Social icons hover effect */
+.social-icon {
+  @apply transition-all duration-300 hover:text-accent hover:scale-125;
+}
+
+/* Button hover effect */
+.button-hover {
+  @apply relative overflow-hidden before:absolute before:inset-0 before:bg-accent/20 before:translate-x-[-100%] before:transition-transform before:duration-300 hover:before:translate-x-0;
+}
+
