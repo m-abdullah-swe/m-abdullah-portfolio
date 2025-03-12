@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X, Star, Menu } from "lucide-react";
+import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, ExternalLink, Star, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -626,24 +626,26 @@ const Index = () => {
                   <Github className="w-6 h-6" />
                 </motion.a>
                 <motion.a 
-                  href="https://linkedin.com/in/yourusername" 
+                  href="https://www.upwork.com/freelancers/~0119ffc6aac096a314?mp_source=share" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="p-2 rounded-full hover:bg-accent/10 transition-colors social-icon"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <Linkedin className="w-6 h-6" />
+                  <ExternalLink className="w-6 h-6" />
+                  <span className="sr-only">Upwork</span>
                 </motion.a>
                 <motion.a 
-                  href="https://twitter.com/yourusername" 
+                  href="https://www.fiverr.com/s/yvoz44e" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="p-2 rounded-full hover:bg-accent/10 transition-colors social-icon"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <Twitter className="w-6 h-6" />
+                  <ExternalLink className="w-6 h-6" />
+                  <span className="sr-only">Fiverr</span>
                 </motion.a>
               </motion.div>
             </div>
