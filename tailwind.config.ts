@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -48,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        neonPurple: "#8B5CF6",
+        neonPink: "#D946EF",
+        neonOrange: "#F97316",
+        neonBlue: "#0EA5E9",
+        neonSky: "#33C3F0",
       },
       keyframes: {
         "fade-up": {
@@ -95,6 +99,24 @@ export default {
             backgroundPosition: "0% 50%",
           },
         },
+        "neon-pulse": {
+          "0%, 100%": {
+            boxShadow: "0 0 5px rgba(139, 92, 246, 0.5), 0 0 10px rgba(139, 92, 246, 0.3)",
+          },
+          "50%": {
+            boxShadow: "0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.5)",
+          },
+        },
+        "neon-border-glow": {
+          "0%, 100%": {
+            borderColor: "rgba(139, 92, 246, 0.7)",
+            boxShadow: "0 0 5px rgba(139, 92, 246, 0.5), 0 0 10px rgba(139, 92, 246, 0.3)",
+          },
+          "50%": {
+            borderColor: "rgba(217, 70, 239, 0.7)",
+            boxShadow: "0 0 10px rgba(217, 70, 239, 0.5), 0 0 20px rgba(217, 70, 239, 0.3)",
+          },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.5s ease-out",
@@ -102,6 +124,8 @@ export default {
         "float": "float 4s ease-in-out infinite",
         "glow": "glow 3s ease-in-out infinite",
         "gradient-shift": "gradient-shift 5s ease infinite",
+        "neon-pulse": "neon-pulse 2s ease-in-out infinite",
+        "neon-border-glow": "neon-border-glow 3s ease-in-out infinite",
       },
       borderRadius: {
         lg: "var(--radius)",
