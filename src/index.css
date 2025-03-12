@@ -61,7 +61,11 @@
   }
 
   .glass {
-    @apply bg-background/80 backdrop-blur-md border border-border/20;
+    @apply bg-background/80 backdrop-blur-md border border-border/20 shadow-sm transition-all duration-300;
+  }
+
+  .glass:hover {
+    @apply shadow-md border-border/40 bg-background/90;
   }
 
   .bg-pattern {
@@ -70,11 +74,11 @@
 
   /* Modern Animation Classes */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_-10px_rgba(0,0,0,0.15)];
   }
 
   .hover-scale {
-    @apply transition-all duration-300 hover:scale-105;
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_25px_-15px_rgba(0,0,0,0.2)];
   }
 
   .hover-glow {
@@ -102,6 +106,70 @@
   html {
     scroll-behavior: smooth;
   }
+  
+  /* Elevation classes */
+  .elevation-1 {
+    @apply shadow-[0_2px_5px_-1px_rgba(0,0,0,0.1),0_2px_3px_-1px_rgba(0,0,0,0.05)];
+  }
+  
+  .elevation-2 {
+    @apply shadow-[0_4px_10px_-3px_rgba(0,0,0,0.1),0_3px_6px_-2px_rgba(0,0,0,0.05)];
+  }
+  
+  .elevation-3 {
+    @apply shadow-[0_8px_15px_-5px_rgba(0,0,0,0.1),0_6px_12px_-3px_rgba(0,0,0,0.05)];
+  }
+  
+  .elevation-4 {
+    @apply shadow-[0_12px_22px_-8px_rgba(0,0,0,0.1),0_8px_18px_-6px_rgba(0,0,0,0.05)];
+  }
+  
+  /* Gradient text effects */
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-accent via-amber-400 to-yellow-300 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent;
+  }
+  
+  /* Enhanced card and button effects */
+  .gradient-border {
+    position: relative;
+    border-radius: var(--radius);
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent 50%, rgba(255, 215, 0, 0.3) 100%);
+    border-radius: calc(var(--radius) + 1px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+  
+  /* Interactive 3D tilt effect */
+  .tilt-effect {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  
+  .tilt-effect:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+  }
+  
+  .tilt-inner {
+    transform: translateZ(20px);
+  }
 }
 
 .section-title {
@@ -109,24 +177,23 @@
 }
 
 .project-card {
-  @apply relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  @apply relative overflow-hidden rounded-lg transition-all duration-300 hover:shadow-[0_15px_30px_-15px_rgba(0,0,0,0.25)] hover:-translate-y-1;
 }
 
 .skill-item {
-  @apply glass px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-accent hover:text-white hover:scale-105 hover:shadow-md;
+  @apply glass px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-accent hover:to-amber-400 hover:text-white hover:scale-105 hover:shadow-[0_5px_15px_-5px_rgba(255,215,0,0.5)];
 }
 
 .nav-link {
-  @apply relative text-foreground/80 hover:text-foreground transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  @apply relative text-foreground/80 hover:text-foreground transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gradient-to-r after:from-accent after:to-amber-400 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
 /* Social icons hover effect */
 .social-icon {
-  @apply transition-all duration-300 hover:text-accent hover:scale-125;
+  @apply transition-all duration-300 hover:text-accent hover:scale-125 hover:shadow-[0_0_10px_rgba(255,215,0,0.5)];
 }
 
 /* Button hover effect */
 .button-hover {
-  @apply relative overflow-hidden before:absolute before:inset-0 before:bg-accent/20 before:translate-x-[-100%] before:transition-transform before:duration-300 hover:before:translate-x-0;
+  @apply relative overflow-hidden shadow-[0_4px_10px_-3px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_10px_20px_-8px_rgba(0,0,0,0.15)] before:absolute before:inset-0 before:bg-gradient-to-r before:from-accent/20 before:to-amber-400/20 before:translate-x-[-100%] before:transition-transform before:duration-300 hover:before:translate-x-0;
 }
-
