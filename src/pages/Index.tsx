@@ -1,12 +1,10 @@
-
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Laptop, Smartphone, Network, Moon, Sun, Github, Linkedin, Twitter, X, Star, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
-// Animation variants for staggered animations
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,7 +28,6 @@ const itemVariants = {
   }
 };
 
-// Component for animated section headers
 const AnimatedSectionTitle = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -619,7 +616,7 @@ const Index = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
                 <motion.a 
-                  href="https://github.com/yourusername" 
+                  href="https://github.com/m-abdullah-swe" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="p-2 rounded-full hover:bg-accent/10 transition-colors social-icon"
